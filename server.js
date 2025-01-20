@@ -16,8 +16,13 @@ app.get('/users', async (req, res) => {
 
     
 })
-app.post("/users", async (req, res) => {
-    await prisma.user.create({
+app.put("/users/:id", async (req, res) => {
+
+    
+    const user = await prisma.user.update({
+        where: {
+            id: req.params.id
+        },
         data: {
             email: req.body.email,
             age: req.body.age,
@@ -25,11 +30,7 @@ app.post("/users", async (req, res) => {
         }
     })
 
-    res.status(201).json({ message: "usuario criado com sucesso!!"})
+    res.status(200).json(user)
 })
 app.listen(3000)
 
-/*
-// lucas 
-// PQwHzyh9YvApa99W
-*/ 
